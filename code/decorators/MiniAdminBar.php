@@ -134,6 +134,29 @@ class MiniAdminBarDecorator extends Extension {
 	 */
 	public function MiniAdminBarCSS() {
 
+		// Get current logged-in member
+		$member = Member::currentUser();
+		
+		if(!$member) {
+			return;
+		}
+
+		// Does the user have access to the CMS?
+		if( !Permission::check('CMS_ACCESS_CMSMain') ) {
+			return;
+		}
+
+		// Does the user have permission to view CMS pages?
+		if( !Permission::check('VIEW_DRAFT_CONTENT') ) {
+			return;
+		}
+
+		// Get the current page
+		$page = $this->owner->data();
+		if( !$page ) {
+			return;
+		}
+
 		return <<<HTML
 			<style type="text/css">
 			#miniadminbar {
@@ -143,7 +166,7 @@ class MiniAdminBarDecorator extends Extension {
 				font-size: 100%;
 				font: inherit;
 				vertical-align: baseline;
-				position: absolute;
+				position: fixed;
 				bottom: 0;
 				right: 0;
 				width: 10em;
