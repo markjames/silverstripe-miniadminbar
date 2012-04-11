@@ -171,6 +171,7 @@ class MiniAdminBarDecorator extends Extension {
 				right: 0;
 				width: 10em;
 				background: green;
+				z-index: 2000;
 			}
 			#miniadminbar strong {
 				cursor: default;
